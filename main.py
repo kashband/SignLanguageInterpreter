@@ -1,6 +1,7 @@
 import sys
 import os
-# import preprocessing as pp
+import cv
+import matplotlib.pyplot as plt
 
 
 # Validate image extension.
@@ -22,15 +23,20 @@ def main():
     assert os.path.exists(_PATH), "Path does not exist."
     _FILES = os.listdir(_PATH)
 
+    processed_images = []
+
     with open('./dump.txt', 'w') as _DUMP:
         for _FILE in _FILES:
             file_split = _FILE.split('.')
             if len(file_split) == 2 and is_valid_file_extension(file_split[1].upper()):
-                #TODO: Call CV function.
-                print("TODO")
+                processed_images.append(cv.preprocessing(_PATH + '/' + _FILE))
             else:
                 _DUMP.write('File \"' + _FILE + '\" has invalid file extension. (Valid file extensions include PNG, JPG/JPEG)\n')
 
+    # Pass procssed images to model
+    plt.figure()
+    plt.imshow(processed_images[0])
+    plt.show()
 
 if __name__ == '__main__':
     main()
