@@ -1,3 +1,0 @@
-File "Network Map" has invalid file extension. (Valid file extensions include PNG, JPG/JPEG)
-File "PortfolioWebsite" has invalid file extension. (Valid file extensions include PNG, JPG/JPEG)
-File "somethingCyberSecurityRelated.txt" has invalid file extension. (Valid file extensions include PNG, JPG/JPEG)
