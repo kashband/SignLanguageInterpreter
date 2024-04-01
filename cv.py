@@ -11,27 +11,20 @@ mp_drawing_styles = mp.solutions.drawing_styles
 
 def preprocessing(image_path):
     # Input: Image
-    # Output: Smaller image with less noise
+    # Output: Image with landmarks
 
     # Setup mp stuff
-
     hands = mp_hands.Hands(
         static_image_mode=True,
         max_num_hands=2, # 2 if gestures
         min_detection_confidence=0.5, # 0.3
         )
 
-    # Get images
-    # images = []
-    # images_dir = './images'
-    # for filename in os.listdir(images_dir):
-    #     img = cv2.imread(os.path.join('images', filename))
-    #     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    #     images.append(img_rgb)
+    # Read image and convert to RGB
     image = cv2.imread(image_path)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     
-    # for image in images:
+    # Process image and identify landmarks
     results = hands.process(image) # landmarks for each image
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
@@ -47,9 +40,8 @@ def preprocessing(image_path):
     return image
 
 if __name__ == "__main__":
-    # print("Hello World!")
-    # images = preprocessing()
+    # image = preprocessing()
     # plt.figure()
-    # plt.imshow(images[0])
+    # plt.imshow(image)
     # plt.show()
     pass
