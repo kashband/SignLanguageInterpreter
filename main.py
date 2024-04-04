@@ -33,7 +33,7 @@ def main():
             else:
                 _DUMP.write('File \"' + _FILE + '\" has invalid file extension. (Valid file extensions include PNG, JPG/JPEG)\n')
 
-    # Pass procssed images to model
+    # Pass processed images to model
     plt.figure()
     plt.imshow(processed_images[0])
     plt.show()
