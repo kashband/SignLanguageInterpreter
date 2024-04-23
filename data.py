@@ -22,28 +22,33 @@ def get_coords_as_lists(landmarks):
 # Outputs: None (implied population of CSV files).
 def generate_csv():
     # Change path to your data source.
-    PATH = Path.home() / 'Downloads'
+    PATH = str(Path.home() / 'Downloads')
+    TRAIN = '/archive/asl_alphabet_train/asl_alphabet_train'
+    TEST = '/archive/asl_alphabet_test/asl_alphabet_test'
 
     # Generate train CSV.
     with open('train.csv', 'w') as file:
-        _CATEGORIES = os.listdir(PATH + '/asl_alphabet_train/asl_alphabet_train')
+        _CATEGORIES = os.listdir(PATH + TRAIN)
         for _CATEGORY in _CATEGORIES:
-            _IMAGES = os.listdir(_CATEGORY)
+            _IMAGES = os.listdir(PATH + TRAIN + '/' + _CATEGORY)
             for _IMAGE in _IMAGES:
-                landmarks = preprocessing(PATH + _IMAGE).multi_hand_landmarks[0].landmark
-                x, y, z = get_coords_as_lists(landmarks)
-                if len(x) == len(y) == len(z):
-                    file.write(str(x) + ',' + str(y) + ',' + str(z) + ',' + _CATEGORY + '\n')
+                results = preprocessing(PATH + TRAIN + '/' + _CATEGORY + '/' + _IMAGE)
+                if results.multi_hand_landmarks:
+                    landmarks = results.multi_hand_landmarks[0].landmark
+                    x, y, z = get_coords_as_lists(landmarks)
+                    if len(x) == len(y) == len(z):
+                        file.write(str(x) + ',' + str(y) + ',' + str(z) + ',' + _CATEGORY + '\n')
     
     # Generate test CSV.
     with open('test.csv', 'w') as file:
-        _CATEGORIES = os.listdir(PATH + '/asl_alphabet_test/asl_alphabet_test')
-        for _CATEGORY in _CATEGORIES:
-            _IMAGES = os.listdir(_CATEGORY)
+            _IMAGES = os.listdir(PATH + TEST)
             for _IMAGE in _IMAGES:
-                landmarks = preprocessing(PATH + _IMAGE).multi_hand_landmarks[0].landmark
-                x, y, z = get_coords_as_lists(landmarks)
-                file.write(str(x) + ',' + str(y) + ',' + str(z) + ',' + _CATEGORY + '\n')
+                results = preprocessing(PATH + TEST + '/' + _IMAGE)
+                if results.multi_hand_landmarks:
+                    landmarks = results.multi_hand_landmarks[0].landmark
+                    x, y, z = get_coords_as_lists(landmarks)
+                    if len(x) == len(y) == len(z):
+                        file.write(str(x) + ',' + str(y) + ',' + str(z) + ',' + _IMAGE[:_IMAGE.find('_')] + '\n')
 
 
 if __name__ == '__main__':

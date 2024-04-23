@@ -46,8 +46,7 @@ def preprocessing(image_path):
             print("err")
 
         return results, image
-    else:
-        return results
+    return results
 
 if __name__ == "__main__":
     # image = preprocessing()
