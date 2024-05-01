@@ -9,6 +9,12 @@ mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 
+# Determines whether returning edited image (for display purposes),
+# or just the necessary hand landmark data.
+# Set to True, if you would like to see the data being used.
+# DISPLAY = True
+DISPLAY = False
+
 def preprocessing(image_path):
     # Input: Image
     # Output: Image with landmarks
@@ -26,18 +32,21 @@ def preprocessing(image_path):
     
     # Process image and identify landmarks
     results = hands.process(image) # landmarks for each image
-    if results.multi_hand_landmarks:
-        for hand_landmarks in results.multi_hand_landmarks:
-            mp_drawing.draw_landmarks(
-                image, 
-                hand_landmarks, 
-                mp_hands.HAND_CONNECTIONS,
-                mp_drawing_styles.get_default_hand_landmarks_style(),
-                mp_drawing_styles.get_default_hand_connections_style())
-    else:
-        print("err")
 
-    return image
+    if DISPLAY:
+        if results.multi_hand_landmarks:
+            for hand_landmarks in results.multi_hand_landmarks:
+                mp_drawing.draw_landmarks(
+                    image, 
+                    hand_landmarks, 
+                    mp_hands.HAND_CONNECTIONS,
+                    mp_drawing_styles.get_default_hand_landmarks_style(),
+                    mp_drawing_styles.get_default_hand_connections_style())
+        else:
+            print("err")
+
+        return results, image
+    return results
 
 if __name__ == "__main__":
     # image = preprocessing()
