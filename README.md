@@ -15,4 +15,4 @@ run `sign_language_interpreter.py`, the primary file and uses the saved `model.h
 
 `sign_mnist_train.csv`, `sign_mnist_test.csv` : image dataset in csv form, not used for final model's training
 
-The `images/` folder contains a handful of images from the dataset for quick testing. The dataset is gitignored due to it's sheer size with approx. 3000 images per character.
+The `images/` folder contains a handful of images from the dataset for quick testing. The dataset, `kaggle_asl/` is gitignored due to it's sheer size with approx. 3000 images per character.
